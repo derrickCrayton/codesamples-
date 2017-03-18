@@ -1,0 +1,54 @@
+﻿@{
+    ViewBag.Title = "Find Quote Request";
+    Layout = "~/Views/Shared/_QuoteMuleAuthenticatedLayout.cshtml";
+}
+
+<div class="page-title">
+    <h2><span class="fa fa-users"></span> Find Quote Requests </h2>
+
+</div>
+
+<!-- START PAGE CONTENT WRAPPER -->
+<div class="page-content-wrap col-md-6">
+    @Html.Partial("_MarketPlaceQR_NG")
+</div>
+
+@section pageInItScripts {
+
+    <script src="~/Scripts/resources/mf.js"></script>
+    <script src="~/Scripts/bower_components/chosen/chosen.jquery.js"></script>
+    <script src="~/Scripts/bower_components/angular-chosen-localytics/dist/angular-chosen.min.js"></script>
+    <script src="~/Scripts/app/Modules/sabio.module.ngChosen.js"></script>
+    <script src="~/Scripts/app/Modules/sabio.module.ngToastr.js"></script>
+}
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+
+    <script src="~/Scripts/sabio.services.googlemaps.js"></script>
+    <script async defer
+            src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCzti6Y2roH_pn68PaXEhG4bkl4BZK15cw&callback">
+    </script>
+
+    <script src="~/Scripts/sabio.services.supplierSettings.js"></script>
+    <script src="~/Scripts/sabio.services.addresses.js"></script>
+    <script src="~/Scripts/sabio.services.marketplace.js"></script>
+    <script src="~/Scripts/sabio.category.tiers.js"></script>
+
+    <script src="~/Scripts/app/QuoteRequestTable/Services/QRServiceFactory.js"></script>
+
+    <script src="~/Scripts/app/Dashboard/Service/SupplierService.js"></script>
+    <script src="~/Scripts/app/Dashboard/Controllers/SupplierSettingsController.js"></script>
+    <script src="~/Scripts/app/MarketPlaceQR/marketPlaceQRService.js"></script>
+    <script src="~/Scripts/app/MarketPlaceQR/marketPlaceQRController.js"></script>
+
+    <script src="~/Scripts/app/Addresses/Services/addressApiService.js"></script>
+    <script src="~/Scripts/app/Addresses/Services/googleMapServiceTemp.js"></script>
+
+    <script src="~/Scripts/Theme/bootstrap-select.js"></script>
+    <script src="~/Scripts/moment.js"></script>
+    <script src="~/Scripts/bower_components/angular-toastr/dist/angular-toastr.js"></script>
+    <script src="~/Scripts/bower_components/angular-toastr/dist/angular-toastr.min.js"></script>
+}
+
+

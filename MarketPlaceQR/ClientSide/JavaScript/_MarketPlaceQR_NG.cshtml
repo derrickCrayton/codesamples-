@@ -1,0 +1,150 @@
+﻿<!-- _MarketPlaceQR_NG -->
+<div class="page-content-wrap" ng-controller="marketplaceController as mpc" id="marketplaceCtrler" novalidate>
+
+    <div class="container-fluid form">
+        <!-- START FORM -->
+        <div class="row">
+            <div class="col-md-12 searchReferenceColumn">
+                <form class="form-horizontal" name="searchForm" ng-submit="vm.submitSearch(searchForm.$valid)">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <h3 class="panel-title"><strong>Search Quote Requests</strong></h3>
+                        </div>
+                        <div class="panel-body">
+
+                            <div class="form-group">
+                                <label class="col-md-3 col-xs-12 control-label">Select Location</label>
+                                <div class="col-md-6 col-xs-12">
+                                    <select class="form-control" chosen ng-model="mpc.catLocations" name="locations" ng-options="loc.latlong as loc.address for loc in mpc.addressBook" required>
+                                        <option value=""></option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="col-md-3 col-xs-12 control-label">Select Radius</label>
+                                <div class="col-md-6 col-xs-12">
+                                    <select class="form-control" chosen ng-model="mpc.catRadius" name="radius" ng-options="rad.value as rad.range for rad in mpc.sampleRadius track by rad.value" required>
+                                        <option value=""></option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="col-md-3 col-xs-12 control-label">Select Product(s)</label>
+                                <div class="col-md-6 col-xs-12">
+                                    <select ng-disabled="mpc.useCompanySupply" id="chosenProducts" class="form-control" chosen ng-model="mpc.catCatalog" name="products" ng-options="key as value for (key, value) in mpc.sampleCatalog track by key" required>
+                                        <option value=""></option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-md-3 col-xs-12 control-label" for="prod_supply_check">Use All Products You Supply</label>
+                                <div class="col-md-6 col-xs-12">
+                                    <input ng-disabled="mpc.catCatalog" id="prod_supply_check" type="checkbox" class="__icheckbox" ng-model="mpc.useCompanySupply" />
+
+                                </div>
+                            </div>
+
+                        </div>
+                        <div class="panel-footer">
+                            <button ng-disabled="!mpc.useCompanySupply && !mpc.catCatalog" ng-click="mpc.startSearch()" class="btn btn-success pull-right">Search</button>
+
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <!-- END FORM -->
+        </div>
+    </div>
+
+    <div ng-show="mpc.search" class="container-fluid market">
+        <!-- START SEARCH RESULTS -->
+        <div class="col-md-12 tableReferenceColumn" ng-repeat="items in mpc.receivedItems">
+            <div class="panel panel-primary panelQuoteRequest">
+                <div class="panel-heading">
+                    <h3 class="panel-title"><a href="{{items.url}}" target="_blank"><strong>{{items.name}}</strong></a></h3>
+
+                    <a href="{{items.url}}" class="btn btn-info pull-right" target="_blank">Click Here to Start Bid</a>
+
+                </div>
+                <div class="panel-body">
+
+
+
+                    <div class="col-md-12 panel-default panelDetails">
+                        <div class="panel-body-details row">
+
+                            <div class="row">
+
+                                <div class="col-md-5">
+                                    <div class="panel-group ">
+                                        <img src="~/content/theme/images/constructionmaterials.jpg" class="img-responsive" alt="John Doe" />
+                                    </div>
+                                    <div class="panel-group panel-body-map ">
+                                        <div class="marketplace" id="map_display_{{items.quoteRequestId}}" style="height: 150px; width: 100%" data-latitude="{{items.latPoint}}" data-longitude="{{items.lngPoint}}"></div>
+                                    </div>
+                                    <div class="panel-group">
+                                        <h3><span class="fa fa-map-marker"></span> {{items.addressName}}</h3>
+                                        <p>{{items.address}}</p>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-7">
+                                    <div class="panel-group ">
+                                        <h3><label class="control-label"><u>Estimation</u></label></h3>
+                                        <div class="panel-estimation">
+                                            <span>{{items.estimations}}</span>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-7">
+                                        <div class="panel-group ">
+                                            <h3><label class="control-label"><u>QuoteRequest Id</u></label></h3>
+                                            <div class="panel-quotereqeuest">
+                                                <span>{{items.quoteRequestId}}</span>
+                                            </div>
+                                        </div>
+
+                                        <div class="panel-group ">
+                                            <h3><label class="control-label"><u>Due Date</u></label></h3>
+                                            <div class="panel-due-date">
+                                                <span>{{items.dueDates}}</span>
+                                            </div>
+                                        </div>
+
+                                        <div class="panel-group ">
+                                            <h3><label class="control-label"><u>Status</u></label></h3>
+                                            <div class="panel-status">
+                                                <span>{{items.status}}</span>
+                                            </div>
+                                        </div>
+
+                                        <div class="panel-group ">
+                                            <h3><label class="control-label"><u>Proximity</u></label></h3>
+                                            <div class="panel-status">
+                                                <span>{{items.distances}} miles from your nearest location</span>
+                                            </div>
+                                        </div>
+
+                                        <div class="panel-group">
+                                            <h3><label class="control-label"><u>Details</u></label></h3>
+                                            @*<div class="panel-status" ng-repeat="items in mpc.receivedItems">*@
+                                            <div class="panel-status">
+                                                <span>{{items.details}}</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+            </div>
+            <!-- END SEARCH RESULTS -->
+        </div>
+    </div>
+</div>
